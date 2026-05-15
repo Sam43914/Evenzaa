@@ -275,6 +275,3 @@ Contributions are what make the open source community such an amazing place to l
 
 ---
 
-<div align="center">
-  <p>Built with ❤️ for Campus Event Management</p>
-</div>

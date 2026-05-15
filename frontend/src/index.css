@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Dancing+Script:wght@700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    @apply antialiased font-sans;
+    background: #111827; /* Much deeper grey for better contrast */
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: #fff;
+  }
+}
+
+@layer components {
+  /* ── Glass card (purple tint) */
+  .glass-card {
+    background: rgba(10, 10, 12, 0.85); /* Significantly darker for text pop */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(124, 58, 237, 0.2); /* Purple border */
+  }
+
+  /* ── Sidebar fixed panel */
+  .sidebar {
+    @apply fixed top-0 left-0 h-full flex flex-col;
+    background: linear-gradient(180deg, #1F2937 0%, #111827 100%);
+    border-right: 1px solid rgba(124, 58, 237, 0.15);
+    z-index: 50;
+    width: 320px;
+  }
+
+  /* ── Main content area (offset for sidebar) */
+  .main-content {
+    margin-left: 320px;
+    min-height: 100vh;
+    @apply overflow-y-auto;
+  }
+
+  /* ── Nav item */
+  .nav-item {
+    @apply flex items-center gap-3.5 px-6 py-3.5 text-sm font-semibold transition-all duration-300;
+    color: #D1D5DB; /* Increased from 0.6 to 0.85 */
+  }
+  .nav-item:hover {
+    background: rgba(124, 58, 237, 0.12);
+    color: #A78BFA;
+  }
+  .nav-item.active {
+    background: linear-gradient(135deg, #7C3AED, #5B21B6);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(124, 58, 237, 0.35);
+  }
+  .nav-item.active svg {
+    filter: drop-shadow(0 0 6px rgba(255,255,255,0.5));
+  }
+
+  /* ── Purple primary button */
+  .btn-orange {
+    @apply font-bold rounded-xl transition-all duration-200 flex items-center justify-center gap-2;
+    background: linear-gradient(135deg, #7C3AED, #5B21B6);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
+  }
+  .btn-orange:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(124, 58, 237, 0.45);
+  }
+  .btn-orange:active:not(:disabled) {
+    transform: translateY(0);
+  }
+  .btn-orange:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* ── Ghost button */
+  .btn-ghost {
+    @apply font-semibold rounded-xl transition-all duration-200 flex items-center justify-center gap-2;
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.75);
+    border: 1px solid rgba(255,255,255,0.10);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+  }
+
+  /* ── Stat card */
+  .stat-card {
+    @apply glass-card rounded-2xl p-6;
+  }
+
+  /* ── Event card */
+  .event-card {
+    @apply glass-card rounded-2xl p-5 transition-all duration-300;
+    border: 1px solid #374151;
+  }
+  .event-card:hover {
+    border-color: rgba(124, 58, 237, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.45), 0 0 0 1px rgba(124, 58, 237, 0.2);
+  }
+
+  /* ── Input field */
+  .input-field {
+    @apply w-full rounded-xl px-4 py-3 font-medium text-sm transition-all duration-200 outline-none;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #fff;
+  }
+  .input-field::placeholder {
+    color: #9CA3AF;
+  }
+  .input-field:focus {
+    border-color: rgba(124, 58, 237, 0.6);
+    background: rgba(255,255,255,0.10);
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+  }
+
+  /* ── Label */
+  .form-label {
+    @apply block text-xs font-semibold uppercase tracking-widest mb-1.5;
+    color: #D1D5DB;
+  }
+
+  /* ── Badge */
+  .badge {
+    @apply inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide;
+  }
+  .badge-orange {
+    background: rgba(124, 58, 237, 0.18);
+    color: #A78BFA;
+    border: 1px solid rgba(124, 58, 237, 0.3);
+  }
+  .badge-green {
+    background: rgba(16,185,129,0.18);
+    color: #34D399;
+    border: 1px solid rgba(16,185,129,0.3);
+  }
+  .badge-red {
+    background: rgba(239,68,68,0.18);
+    color: #F87171;
+    border: 1px solid rgba(239,68,68,0.3);
+  }
+  .badge-blue {
+    background: rgba(59,130,246,0.18);
+    color: #93C5FD;
+    border: 1px solid rgba(59,130,246,0.3);
+  }
+
+  /* ── Section divider */
+  .section-title {
+    @apply px-5 py-4 text-[10px] font-black uppercase tracking-[0.2em];
+    color: #9CA3AF; /* Increased from 0.3 to 0.6 */
+  }
+
+  /* ── Loading spinner overlay */
+  .loading-overlay {
+    @apply flex flex-col items-center justify-center min-h-[400px] gap-4;
+  }
+
+  /* ── Toast override */
+  .toast-success {
+    background: #10B981 !important;
+    color: #fff !important;
+  }
+  .toast-error {
+    background: #EF4444 !important;
+    color: #fff !important;
+  }
+
+  /* ── Typography utils */
+  .font-dancing {
+    font-family: 'Dancing Script', cursive;
+  }
+}
+
+/* ── Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.03);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(124, 58, 237, 0.3);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 58, 237, 0.55);
+}
+
+/* ── Seat bar animation */
+@keyframes seat-fill {
+  from { width: 0; }
+  to { width: var(--fill); }
+}
+.seat-bar {
+  animation: seat-fill 0.8s ease-out forwards;
+}
+
+/* ── Calendar grid */
+.cal-day {
+  @apply rounded-lg text-center text-sm font-semibold py-2 cursor-pointer transition-all;
+  color: #D1D5DB;
+}
+.cal-day:hover {
+  background: rgba(124, 58, 237, 0.15);
+  color: #A78BFA;
+}
+.cal-day.has-event {
+  background: rgba(124, 58, 237, 0.2);
+  color: #A78BFA;
+  border: 1px solid rgba(124, 58, 237, 0.3);
+}
+.cal-day.today {
+  background: linear-gradient(135deg,#7C3AED,#5B21B6);
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(124, 58, 237, 0.4);
+}
+.cal-day.other-month {
+  opacity: 0.3;
+}
+
+/* ── QR Code container */
+.qr-container {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  display: inline-block;
+}
+
+/* ── Custom Animations */
+@keyframes fade-in-slow {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fade-in-slow {
+  animation: fade-in-slow 1.2s ease-out forwards;
+}
+
+@keyframes slide-up-fade {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-up-fade {
+  animation: slide-up-fade 0.8s ease-out forwards;
+}
+
+/* ── Chart bar hover */
+.chart-bar {
+  transition: opacity 0.2s;
+}
+.chart-bar:hover {
+  opacity: 0.85;
+}
